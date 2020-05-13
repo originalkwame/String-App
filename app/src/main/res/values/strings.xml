@@ -4,5 +4,6 @@
     <string name="consonants">Consonants</string>
     <string name="word_count">Word Count</string>
     <string name="total_characters">Characters</string>
-    <string name="string_input">Input Characters</string>
+    <string name="string_input">Type any character(s) to Determine </string>
+    <string name="string_dismiss">Dismiss</string>
 </resources>
