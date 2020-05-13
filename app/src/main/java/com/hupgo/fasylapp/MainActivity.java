@@ -2,16 +2,20 @@ package com.hupgo.fasylapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 Button btnVowels, btnConsonant, btnWordCount, btnTotalCharacter;
 EditText editTextCharacters;
-    String sentence;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,7 @@ EditText editTextCharacters;
         btnConsonant = findViewById(R.id.btn_consonants);
         btnWordCount = findViewById(R.id.btn_word_count);
         btnTotalCharacter = findViewById(R.id.btn_character);
-editTextCharacters = findViewById(R.id.characters);
+        editTextCharacters = findViewById(R.id.characters);
 
 
 
@@ -30,8 +34,9 @@ editTextCharacters = findViewById(R.id.characters);
         btnVowels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sentence = String.valueOf(editTextCharacters.getText());
-                Toast.makeText(MainActivity.this, "Vowels "+getVowels(sentence), Toast.LENGTH_LONG).show();
+               String sentence = String.valueOf(editTextCharacters.getText());
+                String message  = "Number of Vowels in text is :"+getVowels(sentence);
+                validateInput(sentence, message);
             }
         });
 
@@ -40,8 +45,9 @@ editTextCharacters = findViewById(R.id.characters);
         btnConsonant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sentence = String.valueOf(editTextCharacters.getText());
-                Toast.makeText(MainActivity.this, "Consonants "+getConsonants(sentence), Toast.LENGTH_LONG).show();
+               String sentence = String.valueOf(editTextCharacters.getText());
+                String message  = "Number of Consonants for the text is :"+getConsonants(sentence);
+                validateInput(sentence, message);
             }
         });
 
@@ -49,21 +55,24 @@ editTextCharacters = findViewById(R.id.characters);
         btnWordCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sentence = String.valueOf(editTextCharacters.getText());
-                Toast.makeText(MainActivity.this, "Words are "+getWordCount(sentence), Toast.LENGTH_LONG).show();
+              String  sentence = String.valueOf(editTextCharacters.getText());
+                String message  = "Number of counted words from the text is :"+getWordCount(sentence);
+                validateInput(sentence, message);
             }
         });
         //The button to display the total number of characters in sentence(s)
         btnTotalCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sentence = String.valueOf(editTextCharacters.getText());
-                Toast.makeText(MainActivity.this, "Words are "+getCharCount(sentence), Toast.LENGTH_LONG).show();
+                String sentence = String.valueOf(editTextCharacters.getText());
+                String message  = "Number of characters for the text is :"+getCharCount(sentence);
+                validateInput(sentence, message);
+
             }
         });
     }
 
-
+//Method to get the character count
     public int getCharCount(String sentence){
         int characters = 0;
         for(int a = 0; a<sentence.length(); a++){
@@ -113,4 +122,39 @@ editTextCharacters = findViewById(R.id.characters);
 
         return consonants;
     }
+
+
+
+    //Custom dialog method
+    public void myDialog(String displayMessage){
+        // custom dialog
+        Context context = this;
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.custome_layout);
+        Button dialogButton = dialog.findViewById(R.id.dialogButtonOK);
+        TextView textViewMessage = dialog.findViewById(R.id.alertText);
+        textViewMessage.setText(displayMessage);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                //Toast.makeText(getApplicationContext(),"Thank You..!!",Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
+    }
+
+
+    //method to validate at least a character is enter in the EditText
+    public void validateInput(String sentence, String message){
+        //checking if email is empty
+        if (TextUtils.isEmpty(sentence)) {
+            editTextCharacters.setError("Please enter your at least a character");
+            return;
+        }
+        myDialog(message);
+    }
+
+
 }
