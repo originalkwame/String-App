@@ -76,9 +76,7 @@ EditText editTextCharacters;
     public int getCharCount(String sentence){
         int characters = 0;
         for(int a = 0; a<sentence.length(); a++){
-            if(sentence.charAt(a) !=' '){
                 characters ++;
-            }
         }
                 return characters;
     }
