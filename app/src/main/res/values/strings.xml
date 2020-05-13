@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Fasyl App</string>
+    <string name="vowels">Vowels</string>
+    <string name="consonants">Consonants</string>
+    <string name="word_count">Word Count</string>
+    <string name="total_characters">Characters</string>
+    <string name="string_input">Input Characters</string>
+</resources>
